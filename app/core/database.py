@@ -12,13 +12,14 @@ from _utils.case_converter import camel_case_to_snake_case
 
 
 class Base(DeclarativeBase):
-
     @declared_attr
     def __tablename__(cls):
-        return f'{camel_case_to_snake_case(cls.__name__.lower())}s'
+        return f"{camel_case_to_snake_case(cls.__name__.lower())}s"
 
     created_at: Mapped[datetime] = mapped_column(server_default=func.now())
-    updated_ad: Mapped[datetime] = mapped_column(server_default=func.now(), onupdate=func.now())
+    updated_ad: Mapped[datetime] = mapped_column(
+        server_default=func.now(), onupdate=func.now()
+    )
 
 
 class DatabaseHelper:
@@ -51,8 +52,6 @@ class DatabaseHelper:
         await self.engine.dispose()
 
 
-db_helper = DatabaseHelper(
-    url=str(settings.database_url)
-)
+db_helper = DatabaseHelper(url=str(settings.database_url))
 
 print(db_helper)

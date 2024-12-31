@@ -1,0 +1,42 @@
+networks:
+  dev:
+
+services:
+  nginx:
+    image: nginx:stable-alpine
+    ports:
+      - "80:80"
+    volumes:
+      - '.nginx/nginx.conf:/etc/nginx/nginx.conf'
+    depends_on:
+      - app
+      - db
+    networks:
+      - dev
+
+
+  app:
+    container_name: my_project_app
+    build: .
+    ports:
+      - "8000:80"
+    depends_on:
+      - db
+    restart: always
+    networks:
+      - dev
+
+
+  db:
+    container_name: my_project_postgres
+    image: postgres
+    environment:
+      POSTGRES_DB: e-commerce
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 111
+    ports:
+      - "5432:5432"
+    restart: always
+    networks:
+      - dev
+    

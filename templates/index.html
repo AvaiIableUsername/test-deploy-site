@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Item Details</title>
+    <link href="{{ url_for('static', path='/styles.css' )}}" rel="stylesheet">
+  </head>
+  <body>
+    <p><a href="{{url_for('root', id=id)}}">Item ID: {{ id }}</a></p>
+  </body>
+</html>
