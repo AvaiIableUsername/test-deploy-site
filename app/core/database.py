@@ -1,4 +1,4 @@
-from config import settings
+from core.config import settings
 
 from datetime import datetime
 from typing import AsyncGenerator
@@ -8,7 +8,7 @@ from sqlalchemy.orm import DeclarativeBase, declared_attr
 from sqlalchemy.orm import Mapped, mapped_column
 from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker, AsyncSession
 
-from utils.case_converter import camel_case_to_snake_case
+from _utils.case_converter import camel_case_to_snake_case
 
 
 class Base(DeclarativeBase):
@@ -54,3 +54,5 @@ class DatabaseHelper:
 db_helper = DatabaseHelper(
     url=str(settings.database_url)
 )
+
+print(db_helper)
