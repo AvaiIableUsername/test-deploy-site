@@ -8,6 +8,7 @@ from typing import Annotated
 
 from datetime import datetime
 
+from errors import AccessTokenExpired
 
 from core.password_hash import create_jwt_token, decode_jwt_token
 from dependencies import SessionDp, AccessBearerToken, RefreshBearerToken
@@ -18,7 +19,6 @@ from schemas.user import (
     UserCreateOutput,
     UserLogIn,
     UserAddress,
-    UserModel,
     UserId,
 )
 from dependencies import get_current_user
@@ -79,4 +79,4 @@ async def new_access_token(token_details=Depends(RefreshBearerToken())):
 
 @users_router.post("/logout")
 async def login_by_access_token(token_details=Depends(AccessBearerToken())):
-    return token_details
+    raise AccessTokenExpired
